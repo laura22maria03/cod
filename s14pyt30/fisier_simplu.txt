@@ -1,0 +1,6 @@
+Proces-A a scris datele: Mesaj A
+Proces-C a scris datele: Mesaj C
+Proces-A a scris datele: Mesaj A
+Proces-A a scris datele: Mesaj A
+Proces-C a scris datele: Mesaj C
+Proces-A a scris datele: Mesaj A
