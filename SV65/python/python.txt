@@ -1,0 +1,30 @@
+import multiprocessing
+
+def worker(q):
+    print("Sunt procesul %s si am primit %s " %(multiprocessing.current_process().name,q.get()))
+
+
+if __name__=='__main__':
+
+    f=open("in.txt","r")
+    a=f.read().split()
+
+    queue = multiprocessing.Queue()
+
+    p1 = multiprocessing.Process(target=worker, args=(queue,))
+    p1.start()
+
+    p2 = multiprocessing.Process(target=worker, args=(queue,))
+    p2.start()
+
+    p3 = multiprocessing.Process(target=worker, args=(queue,))
+    p3.start()
+
+    for i in a:
+        queue.put(i)
+
+    queue.close()
+    queue.join_thread()
+    p1.join()
+    p2.join()
+    p3.join()

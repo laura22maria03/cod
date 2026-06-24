@@ -1,0 +1,32 @@
+fun main(args:Array<String>) {
+
+    val A = mutableListOf<Int>()
+    val B = mutableListOf<Int>()
+
+    for (i in 0..2)
+        A.add(i)
+    for (i in 1..3)
+        B.add(i)
+
+    println(A)
+    println(B)
+
+    var AxB = A.map { x->B.map { y->Pair(x,y) } }
+    println(AxB)
+
+    var BxA = B.map { x->A.map { y->Pair(x,y) } }
+    println(BxA)
+
+    var AXB= mutableListOf<Pair<Int, Int>>()
+    AxB.forEach { it.forEach { AXB.add(it) } }
+
+    var BXA= mutableListOf<Pair<Int, Int>>()
+    BxA.forEach { it.forEach { BXA.add(it) } }
+
+    println(AXB)
+    println(BXA)
+
+    val result = AXB.filter { BXA.contains(it) }.toMap()
+    println(result)
+
+}

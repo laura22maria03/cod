@@ -1,0 +1,103 @@
+enum class Randuri{
+    RAND1,RAND2,RAND3,RAND4,RAND5,RAND6
+}
+
+enum class Geamuri{
+    GeamStanga,GeamDreapta,GeamFata,GeamSpate
+}
+
+class Proiector(val id: Int)
+{
+    fun Open()
+    {
+        println("Profesorul a deschis proiectorul")
+    }
+}
+class Elev(val nume: String)
+{
+    fun SePregatesteDeTest(rand:Randuri)
+    {
+
+            println("Elevul " + nume + " se aseaza pe randul " + rand)
+
+    }
+}
+
+class Profesor(val nume:String)
+{
+    fun DeschideProiectorul(p:Proiector)
+    {
+        p.Open()
+    }
+
+    fun AseazaEleviTest(elevi: MutableList<Elev>)
+    {
+       for (i in 0..elevi.size-1)
+       {
+           elevi[i].SePregatesteDeTest(Randuri.values()[i])
+       }
+    }
+
+    fun InchideGeamnul(directie: String)
+    {
+        when(directie)
+        {
+            "stanga"->{
+                println("Profesorul a deschis: " + Geamuri.GeamStanga)
+            }
+            "dreapta"->{
+                println("Profesorul a deschis: " + Geamuri.GeamDreapta)
+            }
+            "fata"->{
+                println("Profesorul a deschis: " + Geamuri.GeamFata)
+            }
+            "spate"->{
+                println("Profesorul a deschis: " + Geamuri.GeamSpate)
+            }
+            else -> println("Nu exista geam acolo")
+        }
+    }
+}
+
+
+
+class SalaDeCurs(val profesor:Profesor, val elevi: MutableList<Elev>, val proiector:Proiector)
+{
+    fun ExecuteSomething(actiune: String)
+    {
+        when(actiune) {
+            "proiector" -> {
+                profesor.DeschideProiectorul(proiector)
+            }
+            "geam"->{
+                profesor.InchideGeamnul("stanga")
+            }
+            "test"->{
+                profesor.AseazaEleviTest(elevi)
+            }
+            else->{
+                println("Actiunea nu a fost dezvoltata inca")
+            }
+        }
+    }
+}
+
+fun main(args:Array<String>) {
+
+    val elev1 = Elev("Alex")
+    val elev2 = Elev("Marian")
+    val elev3 = Elev("George")
+    val elev4 = Elev("Tudor")
+    val elev5 = Elev("Hara")
+    val elev6 = Elev("Ionut")
+    val elevi = mutableListOf<Elev>(elev1,elev2,elev3,elev4,elev5,elev6)
+
+    val proiector = Proiector(1)
+    val profesor = Profesor("Mihai")
+
+    val salaDeCurs = SalaDeCurs(profesor,elevi,proiector)
+
+    salaDeCurs.ExecuteSomething("proiector")
+    salaDeCurs.ExecuteSomething("geam")
+    salaDeCurs.ExecuteSomething("test")
+}

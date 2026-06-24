@@ -1,0 +1,16 @@
+import java.io.File
+
+fun main(args:Array<String>) {
+    var a=""
+    File("in.txt").forEachLine {  a+=it
+        a+=" "
+    }
+    val words:List<String>
+    words = a.split(" ")
+
+    val new_words=words.filter { it.length >= 4 }
+        .map { it.removeRange(it.length/2-1,it.length/2+1)}
+
+    println(new_words)
+
+}

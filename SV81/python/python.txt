@@ -1,0 +1,42 @@
+class Student:
+    def __init__(self):
+        self.state = None
+        self.preState = None
+    def execute(self,colega):
+        self.preState = self.state
+        if(colega.getName()=="Bianca"):
+            self.state="fericit"
+        elif(colega.getName()=="Teodora"):
+            self.state="trist"
+        elif(colega.getName()=="Ramona"):
+            self.state="indragostit"
+        else:
+            self.state="indiferent"
+    def undo(self):
+        self.state = self.preState
+        self.preState=None
+    def showState(self):
+        print(self.state)
+
+class Colega:
+    def __init__(self,name):
+        self.name=name
+    def getName(self):
+        return self.name
+
+
+
+if __name__=='__main__':
+    marian=Student()
+    colege_stack=[]
+    colege_stack.append(Colega("Alina"))
+    colege_stack.append(Colega("Teodora"))
+    colege_stack.append(Colega("Elena"))
+    colege_stack.append(Colega("Ramona"))
+    colege_stack.append(Colega("Bianca"))
+    colege_stack.append(Colega("Vasilica"))
+
+    for colega in colege_stack:
+        marian.execute(colega)
+        marian.showState()
+

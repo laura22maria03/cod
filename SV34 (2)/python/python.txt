@@ -1,0 +1,26 @@
+import tkinter as tk
+if __name__=='__main__':
+    frame =tk.Tk()
+    frame.geometry("500x1500")
+    canvas=tk.Canvas(frame,width=1000,height=1000)
+    canvas.place(x=0,y=0)
+
+    n0=0
+    x=[]
+    y=[]
+    for i in range(21,50):
+        x.append(i)
+        s=n0
+        for j in range(0,i):
+            s=s+j
+        y.append(s)
+
+    print(x)
+    print(y)
+
+    for i in range(0,len(x)-2):
+       if(i%2):
+           canvas.create_line(x[i], y[i], x[i+1], y[i+1],fill='red',width=4)
+       else:
+           canvas.create_line(x[i], y[i], x[i + 1], y[i + 1],fill='blue',width=4)
+    frame.mainloop()

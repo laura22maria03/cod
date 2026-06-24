@@ -1,0 +1,121 @@
+import java.io.File
+
+interface NUMBER
+{
+    fun afiseazaDouble(fw:File)
+    fun afiseazaFloat(fw:File)
+    fun afiseazaInt(fw:File)
+}
+
+class DOUBLE(val nr: Number):NUMBER
+{
+    override fun afiseazaDouble(fw:File) {
+        fw.appendText("Am afisat un double: " + nr + "\n")
+    }
+
+    override fun afiseazaFloat(fw:File) {
+    }
+
+    override fun afiseazaInt(fw:File) {
+    }
+
+    override fun toString(): String {
+        return "double"
+    }
+}
+
+
+class INTEGER(val nr: Number):NUMBER
+{
+    override fun afiseazaDouble(fw:File) {
+    }
+
+    override fun afiseazaFloat(fw:File) {
+    }
+
+    override fun afiseazaInt(fw:File) {
+        fw.appendText("Am afisat un intreg: " + nr + "\n")
+
+    }
+    override fun toString(): String {
+        return "int"
+    }
+}
+
+class FLOAT(val nr: Number):NUMBER
+{
+    override fun afiseazaDouble(fw:File) {
+    }
+
+    override fun afiseazaFloat(fw:File) {
+        fw.appendText("Am afisat un float: " + nr + "\n")
+    }
+
+    override fun afiseazaInt(fw:File) {
+
+    }
+    override fun toString(): String {
+        return "float"
+    }
+}
+
+class Complex(val  re:Number, val  im:Number)
+{
+   fun afiseazaComplex(fw: File)
+   {
+       fw.appendText("Am afisat un complex: " + re +" " +im+"*i" + "\n")
+   }
+    override fun toString(): String {
+        return "complex"
+    }
+}
+
+interface FileWriter
+{
+    fun Write(fw: File, obj: Any)
+}
+
+open class Adapter:FileWriter
+{
+    override fun Write(fw:File, obj: Any) {
+        val aux: NUMBER = obj as NUMBER
+       when(aux.toString())
+       {
+           "double"-> aux.afiseazaDouble(fw)
+           "int"-> aux.afiseazaInt(fw)
+           "float"-> aux.afiseazaFloat(fw)
+            else -> fw.appendText("numar incorect" + "\n")
+       }
+    }
+}
+
+class Executor:Adapter()
+{
+    override fun Write(fw: File, obj: Any) {
+        if (obj.toString() == "double" || obj.toString() == "int" || obj.toString() == "float")
+        {
+            super.Write(fw, obj)
+        }
+        else
+            if(obj.toString() =="Complex")
+            {
+                val aux: Complex = obj as Complex
+                aux.afiseazaComplex(fw)
+            }
+    }
+}
+fun main(args:Array<String>)
+{
+    val file = File("out.txt")
+    val executor = Executor()
+
+    val intreg = INTEGER(700)
+    val real = DOUBLE(800.6)
+    val floatNr = FLOAT(32.6f)
+    val complex = Complex(10,80)
+
+    executor.Write(file,intreg)
+    executor.Write(file,real)
+    executor.Write(file,floatNr)
+    executor.Write(file,complex)
+}

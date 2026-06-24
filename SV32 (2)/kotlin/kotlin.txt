@@ -1,0 +1,12 @@
+fun main(args:Array<String>) {
+    var my_map = hashMapOf<Int, Int>()
+    for (i  in 0..100)
+    {
+        my_map[i] = i
+    }
+    println(my_map)
+    my_map.values.map { i-> 3 * i - 1  }
+        .map(Int::toString)
+        .forEach ( ::println )
+
+}

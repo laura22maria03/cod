@@ -1,0 +1,31 @@
+import asyncio as asy
+
+@asy.coroutine
+def Multiply(a):
+    for key in a.keys():
+        a[key] = 3 * a[key]
+
+@asy.coroutine
+def Add(a):
+    for i in range(0,len(a.keys())-2):
+        a[i]=a[i]+a[i+1]
+@asy.coroutine
+def CheckParity(a):
+    for key in a.keys():
+        if(a[key]%2==0):
+            a[key]=0
+
+if __name__ == '__main__':
+    a=dict()
+    for i in range(0,100):
+        a[i]=i
+    tasks=[asy.Task(Multiply(a)), asy.Task(Add(a)), asy.Task(CheckParity(a)) ]
+    bucla = asy.get_event_loop()
+    bucla.run_until_complete(asy.wait(tasks))
+    bucla.close()
+    print(a)
+    
+
+
+
+

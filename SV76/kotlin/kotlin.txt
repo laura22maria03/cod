@@ -1,0 +1,93 @@
+open class Om(val nume:String){
+    fun Scrie_Tabla(){
+        println(nume + " scrie tabla")
+    }
+    fun Sterge_Tabla()
+    {
+        println(nume + " sterge tabla")
+    }
+
+}
+
+class Elev( nume:String) : Om(nume)
+{
+    fun Asculta_De_Profesor()
+    {
+        println("Elevul " + nume + " asculta")
+    }
+}
+
+class Profesor( nume:String) : Om(nume)
+{
+    fun Preda_La_elev()
+    {
+        println("Profesorul " + nume + " preda")
+    }
+    fun Porneste_Calculatoare( calculatoare: MutableList<Calculator>)
+    {
+        calculatoare.forEach { it.Start() }
+    }
+}
+
+class Calculator(val id: Int)
+{
+    fun Start()
+    {
+     println("S-a pornit calculatorul: "  + id)
+    }
+}
+
+class Sala(val nume: String, val elevi: MutableList<Elev>, val p:Profesor, val calculatoare: MutableList<Calculator>)
+{
+        fun Actioneaza(om:String, actiune: String)
+        {
+            when(om)
+            {
+                "elev"-> {
+
+                    when(actiune)
+                    {
+                        "asculta"-> elevi.forEach { it.Asculta_De_Profesor() }
+                        "sterge" -> elevi.forEach{it.Sterge_Tabla()}
+                        "scrie" -> elevi.forEach{it.Scrie_Tabla()}
+
+                    }
+
+                }
+
+                "profesor"-> {
+
+                    when(actiune)
+                    {
+                        "preda"->p.Preda_La_elev()
+                        "sterge" -> p.Sterge_Tabla()
+                        "scrie" -> p.Scrie_Tabla()
+                        "start" -> p.Porneste_Calculatoare(calculatoare)
+                    }
+
+                }
+            }
+        }
+}
+fun main(args:Array<String>) {
+    val alex= Elev("Alex")
+    val marian= Elev("Marian")
+    val hara= Elev("Hara")
+    val m= mutableListOf<Elev>()
+    m.add(alex)
+    m.add(hara)
+    m.add(marian)
+    val c1=Calculator(1)
+    val c2=Calculator(2)
+    val c3=Calculator(3)
+    val calculatoare = mutableListOf<Calculator>()
+    calculatoare.add(c1)
+    calculatoare.add(c2)
+    calculatoare.add(c3)
+    val p=Profesor("George")
+    val sala=Sala("Sala2",m,p,calculatoare)
+    sala.Actioneaza("elev","asculta")
+    sala.Actioneaza("profesor","sterge")
+
+}
+
